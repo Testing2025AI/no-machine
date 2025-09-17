@@ -96,7 +96,7 @@ Images should make them laugh – Humor dissolves anxiety`
 export async function generateBoundaryResponse(scenario: string) {
   try {
     const response = await anthropic.messages.create({
-      model: 'claude-3-5-sonnet-20241022',
+      model: 'claude-3-5-sonnet-20240620',
       max_tokens: 2000,
       system: BOUNDARY_COACH_PROMPT,
       messages: [
