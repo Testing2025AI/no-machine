@@ -6,9 +6,5 @@
     "src/app/api/generate-images/route.ts": {
       "maxDuration": 60
     }
-  },
-  "env": {
-    "ANTHROPIC_API_KEY": "@anthropic_api_key",
-    "FAL_KEY": "@fal_key"
   }
 }
