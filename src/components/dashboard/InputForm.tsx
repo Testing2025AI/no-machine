@@ -33,7 +33,7 @@ export function InputForm({ onSubmit, isLoading = false }: InputFormProps) {
               value={scenario}
               onChange={(e) => setScenario(e.target.value)}
               placeholder="Describe your situation... (e.g., 'My boss keeps calling me on weekends' or 'My friend always asks me to cover their shifts')"
-              className="w-full h-32 p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent resize-none"
+              className="w-full h-32 p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent resize-none placeholder:text-black"
               disabled={isLoading}
             />
             <div className="text-right text-sm text-gray-500 mt-1">

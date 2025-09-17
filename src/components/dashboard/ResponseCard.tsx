@@ -80,13 +80,13 @@ export function ResponseCard({ boundary, imageUrl, isImageLoading = false }: Res
 
         {/* Use When */}
         <div>
-          <h4 className="font-semibold text-gray-800 mb-1">Use when:</h4>
+          <h4 className="font-semibold text-black mb-1">Use when:</h4>
           <p className="text-sm text-gray-600">{boundary.useWhen}</p>
         </div>
 
         {/* Script */}
         <div>
-          <h4 className="font-semibold text-gray-800 mb-1">Script:</h4>
+          <h4 className="font-semibold text-black mb-1">Script:</h4>
           <div className="bg-white p-3 rounded border text-sm italic">
             &ldquo;{boundary.script}&rdquo;
           </div>
@@ -103,7 +103,7 @@ export function ResponseCard({ boundary, imageUrl, isImageLoading = false }: Res
 
         {/* Why It Works */}
         <div>
-          <h4 className="font-semibold text-gray-800 mb-1">Why it works:</h4>
+          <h4 className="font-semibold text-black mb-1">Why it works:</h4>
           <p className="text-sm text-gray-600">{boundary.whyItWorks}</p>
         </div>
       </CardContent>
