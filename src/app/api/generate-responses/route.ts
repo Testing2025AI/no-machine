@@ -33,8 +33,21 @@ export async function POST(request: NextRequest) {
 
   } catch (error) {
     console.error('Error in generate-responses:', error)
+
+    // Return more detailed error for debugging
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error'
+    const errorDetails = {
+      message: errorMessage,
+      hasAnthropicKey: !!process.env.ANTHROPIC_API_KEY,
+      keyPrefix: process.env.ANTHROPIC_API_KEY?.substring(0, 10) + '...',
+    }
+
     return NextResponse.json(
-      { error: 'Internal server error' },
+      {
+        error: 'Internal server error',
+        details: errorDetails,
+        timestamp: new Date().toISOString()
+      },
       { status: 500 }
     )
   }
