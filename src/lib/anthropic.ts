@@ -94,47 +94,43 @@ Action-oriented – They can copy/paste your scripts
 Images should make them laugh – Humor dissolves anxiety`
 
 export async function generateBoundaryResponse(scenario: string) {
-  try {
-    // Try the latest model first, fallback to stable version if needed
-    const response = await anthropic.messages.create({
-      model: 'claude-3-5-sonnet-20241022',
-      max_tokens: 2000,
-      system: BOUNDARY_COACH_PROMPT,
-      messages: [
-        {
-          role: 'user',
-          content: scenario,
-        },
-      ],
-    })
+  // List of model names to try in order of preference
+  const modelNames = [
+    'claude-3-5-sonnet-4-0',       // Sonnet 4.0 (preferred)
+    'claude-3-opus-20240229',      // Opus fallback
+    'claude-3-5-sonnet-20241022',  // Sonnet 3.5 latest
+    'claude-3-haiku-20240307'      // Last resort
+  ]
 
-    return response.content[0].type === 'text' ? response.content[0].text : null
-  } catch (error) {
-    console.error('Error generating boundary response:', error)
+  let lastError: Error | null = null
 
-    // If the October model fails, try the June model as fallback
-    if (error instanceof Error && error.message.includes('claude-3-5-sonnet-20241022')) {
-      console.log('Trying fallback model: claude-3-5-sonnet-20240620')
-      try {
-        const fallbackResponse = await anthropic.messages.create({
-          model: 'claude-3-5-sonnet-20240620',
-          max_tokens: 2000,
-          system: BOUNDARY_COACH_PROMPT,
-          messages: [
-            {
-              role: 'user',
-              content: scenario,
-            },
-          ],
-        })
+  for (const modelName of modelNames) {
+    try {
+      console.log(`Attempting to use model: ${modelName}`)
 
-        return fallbackResponse.content[0].type === 'text' ? fallbackResponse.content[0].text : null
-      } catch (fallbackError) {
-        console.error('Fallback model also failed:', fallbackError)
-        throw fallbackError
-      }
+      const response = await anthropic.messages.create({
+        model: modelName,
+        max_tokens: 2000,
+        system: BOUNDARY_COACH_PROMPT,
+        messages: [
+          {
+            role: 'user',
+            content: scenario,
+          },
+        ],
+      })
+
+      console.log(`Successfully used model: ${modelName}`)
+      return response.content[0].type === 'text' ? response.content[0].text : null
+
+    } catch (error) {
+      console.error(`Model ${modelName} failed:`, error)
+      lastError = error instanceof Error ? error : new Error(String(error))
+      continue
     }
-
-    throw error
   }
+
+  // If all models failed, throw the last error
+  console.error('All models failed!')
+  throw lastError || new Error('All Claude models are unavailable')
 }
