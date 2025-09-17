@@ -11,7 +11,7 @@ export default function Home() {
               No Machine
             </h1>
             <p className="text-xl md:text-2xl text-gray-700 mb-4">
-              Reformed Doormat's Boundary Coach
+              Reformed Doormat&apos;s Boundary Coach
             </p>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
               From chronic apologizer to boundary expert. Get personalized scripts
