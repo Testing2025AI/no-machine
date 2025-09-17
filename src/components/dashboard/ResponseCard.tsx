@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import Image from 'next/image'
+// import Image from 'next/image' - using regular img tag to avoid optimization issues
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
 import { BoundaryOption } from '@/lib/types'
@@ -65,12 +65,10 @@ export function ResponseCard({ boundary, imageUrl, isImageLoading = false }: Res
               <span className="text-sm">Generating humor...</span>
             </div>
           ) : imageUrl ? (
-            <Image
+            <img
               src={imageUrl}
               alt="Humorous boundary illustration"
               className="w-full h-full object-cover rounded-lg"
-              fill
-              sizes="(max-width: 768px) 100vw, 33vw"
             />
           ) : (
             <div className="text-gray-400 text-center p-4">

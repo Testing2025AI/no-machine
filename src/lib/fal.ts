@@ -27,7 +27,9 @@ export async function generateImage(prompt: string): Promise<string | null> {
       },
     }) as ImageGenerationResult
 
-    return result.images[0]?.url || null
+    const imageUrl = result.images[0]?.url
+    console.log('Generated image URL:', imageUrl)
+    return imageUrl || null
   } catch (error) {
     console.error('Error generating image:', error)
     return null
