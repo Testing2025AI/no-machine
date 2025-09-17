@@ -47,7 +47,7 @@ export default function Home() {
               </div>
               <h3 className="text-xl font-semibold mb-2">Reformed Doormat Wisdom</h3>
               <p className="text-gray-600">
-                Personal insights from someone who's been there
+                Personal insights from someone who&apos;s been there
               </p>
             </div>
           </div>

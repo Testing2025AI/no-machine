@@ -65,7 +65,7 @@ export default function Dashboard() {
             No Machine
           </h1>
           <p className="text-lg text-gray-600">
-            Reformed Doormat's Boundary Coach
+            Reformed Doormat&apos;s Boundary Coach
           </p>
         </div>
 

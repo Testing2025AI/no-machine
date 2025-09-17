@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Image from 'next/image'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
 import { BoundaryOption } from '@/lib/types'
@@ -64,10 +65,12 @@ export function ResponseCard({ boundary, imageUrl, isImageLoading = false }: Res
               <span className="text-sm">Generating humor...</span>
             </div>
           ) : imageUrl ? (
-            <img
+            <Image
               src={imageUrl}
               alt="Humorous boundary illustration"
               className="w-full h-full object-cover rounded-lg"
+              fill
+              sizes="(max-width: 768px) 100vw, 33vw"
             />
           ) : (
             <div className="text-gray-400 text-center p-4">
@@ -87,7 +90,7 @@ export function ResponseCard({ boundary, imageUrl, isImageLoading = false }: Res
         <div>
           <h4 className="font-semibold text-gray-800 mb-1">Script:</h4>
           <div className="bg-white p-3 rounded border text-sm italic">
-            "{boundary.script}"
+            &ldquo;{boundary.script}&rdquo;
           </div>
         </div>
 
