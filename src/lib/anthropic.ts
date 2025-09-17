@@ -95,8 +95,11 @@ Images should make them laugh – Humor dissolves anxiety`
 
 export async function generateBoundaryResponse(scenario: string) {
   try {
+    // Try the latest model first, fallback to stable version if needed
+    let modelName = 'claude-3-5-sonnet-20241022'
+
     const response = await anthropic.messages.create({
-      model: 'claude-3-5-sonnet-20240620',
+      model: modelName,
       max_tokens: 2000,
       system: BOUNDARY_COACH_PROMPT,
       messages: [
@@ -110,6 +113,30 @@ export async function generateBoundaryResponse(scenario: string) {
     return response.content[0].type === 'text' ? response.content[0].text : null
   } catch (error) {
     console.error('Error generating boundary response:', error)
+
+    // If the October model fails, try the June model as fallback
+    if (error instanceof Error && error.message.includes('claude-3-5-sonnet-20241022')) {
+      console.log('Trying fallback model: claude-3-5-sonnet-20240620')
+      try {
+        const fallbackResponse = await anthropic.messages.create({
+          model: 'claude-3-5-sonnet-20240620',
+          max_tokens: 2000,
+          system: BOUNDARY_COACH_PROMPT,
+          messages: [
+            {
+              role: 'user',
+              content: scenario,
+            },
+          ],
+        })
+
+        return fallbackResponse.content[0].type === 'text' ? fallbackResponse.content[0].text : null
+      } catch (fallbackError) {
+        console.error('Fallback model also failed:', fallbackError)
+        throw fallbackError
+      }
+    }
+
     throw error
   }
 }
